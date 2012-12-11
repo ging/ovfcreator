@@ -1,6 +1,9 @@
 ovfcreator
 ==========
 
+[![Build Status](https://travis-ci.org/ging/ovfcreator.png)](https://travis-ci.org/ging/ovfcreator)
+
+
 JavaScript Framework to create documents based on the OVF (Open Virtualization Format) specification.
 
 More info at:
