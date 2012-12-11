@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/4caast/!svn/ver/1223/trunk/WP4/ovf_generation/ovfs
+END
+7testRecordManagementInstantiateOvf.xml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/7testRecordManagementInstantiateOvf.xml
+END
+14testGetProductsCookbooks.xml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/14testGetProductsCookbooks.xml
+END
+11testInstantiateOVFParamsServiceFiware.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/11testInstantiateOVFParamsServiceFiware.xml
+END
+17testApplicationTomcat.xml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/17testApplicationTomcat.xml
+END
+3testGetInstantiateOvfParams.xml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/3testGetInstantiateOvfParams.xml
+END
+16testApplicationWithCookbooksAndAtributes.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/16testApplicationWithCookbooksAndAtributes.xml
+END
+5testGetEnvelopeBalancer.xml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/5testGetEnvelopeBalancer.xml
+END
+8testAddingKPIsandRulesforScalability.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/8testAddingKPIsandRulesforScalability.xml
+END
+6testGetEnvelope2VMsWithProducts.xml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/6testGetEnvelope2VMsWithProducts.xml
+END
+13testRecordManagementInstantiateOvf.xml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/13testRecordManagementInstantiateOvf.xml
+END
+13testRecordManagementInstantiateOvfDeployment.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/4caast/!svn/ver/1223/trunk/WP4/ovf_generation/ovfs/13testRecordManagementInstantiateOvfDeployment.xml
+END
+2testGetEnvelope.xml
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/2testGetEnvelope.xml
+END
+9testRecordManagementInstantiateOvfWithScalability.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/9testRecordManagementInstantiateOvfWithScalability.xml
+END
+15testGetAppCookbooks.xml
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/15testGetAppCookbooks.xml
+END
+1testGetInstanceEnvelopeEmpty.xml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/1testGetInstanceEnvelopeEmpty.xml
+END
+12testInstantiateOVFParamsVMFiware.xml
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/12testInstantiateOVFParamsVMFiware.xml
+END
+10testInstantiateOVFParamsVM.xml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/10testInstantiateOVFParamsVM.xml
+END
+4testGetEnvelope2VMs.xml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/4caast/!svn/ver/1221/trunk/WP4/ovf_generation/ovfs/4testGetEnvelope2VMs.xml
+END
+9testRulesintheVM.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/4caast/!svn/ver/1208/trunk/WP4/ovf_generation/ovfs/9testRulesintheVM.xml
+END

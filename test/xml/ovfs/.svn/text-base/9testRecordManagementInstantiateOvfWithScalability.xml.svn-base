@@ -1,0 +1,606 @@
+<InstantiateOvfParams name="sapusecase28"
+xsi:schemaLocation="http://schemas.tcloud.telefonica.com/tcloud/1 tcloud.xsd"
+xmlns="http://schemas.tcloud.telefonica.com/tcloud/1"
+xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1"
+xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData"
+xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
+xmlns:rsrvr="http://schemas.telefonica.com/claudia/ovf"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ovf:Envelope xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1"
+	xmlns="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ovfenvelope="http://schemas.dmtf.org/ovf/envelope/1"
+	xmlns:rsrvr="http://schemas.telefonica.com/claudia/ovf"
+	xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData"
+	xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rif="http://www.w3.org/2007/rif#"
+	xsi:schemaLocation="http://schemas.telefonica.com/claudia/ovf reservoir.xsd">
+	<ovf:References> 
+		<ovf:File ovf:id="tomcat" ovf:href="4Caast-Ubuntu-Tomcat" rsrvr:digest="8f1643c4fdf83ab3827190ab771f76e1"/> 
+
+		<ovf:File ovf:id="haproxy" ovf:href="4CaastHaproxyNoSetup" rsrvr:digest="8f1643c4fdf83ab3827190ab771f76e1"/> 
+	</ovf:References>
+	<ovf:DiskSection> 
+		<ovf:Disk ovf:diskId="tomcat" ovf:fileRef="tomcat" ovf:capacity="512" ovf:format="http://www.gnome.org/~markmc/qcow-image-format.html"/>
+		<ovf:Disk ovf:diskId="haproxy" ovf:fileRef="haproxy" ovf:capacity="512" ovf:format="http://www.gnome.org/~markmc/qcow-image-format.html"/>
+	</ovf:DiskSection>
+	<rsrvr:KPISection> 
+<Info> KPI information </Info> 
+
+ <rsrvr:KPI KPIname="requestDelay" KPItype="VEEHW" KPIVmname="tomcat" />
+ </rsrvr:KPISection> 
+	
+        <ovf:NetworkSection>
+           <ovf:Info>Network</ovf:Info>
+         			<ovf:Network ovf:name="public" rsrvr:public="true"> 
+				<ovf:Description>Network public</ovf:Description> 
+			</ovf:Network>
+		</ovf:NetworkSection> 
+        <ovf:VirtualSystemCollection ovf:id="sapusecase28">
+		  <ovf:Info>VirtualSystemCollection</ovf:Info>	<ovf:VirtualSystem ovf:id="tomcat" rsrvr:min="1" rsrvr:initial="1" rsrvr:max="5"
+			rsrvr:balanced="haproxy">
+
+			<ovf:Info>tomcat</ovf:Info>
+			<ovf:OperatingSystemSection ovf:id="76">
+				<Info>Specifies the operating system installed</Info>
+				<Description>4Caast-Ubuntu-Tomcat</Description>
+			</ovf:OperatingSystemSection>
+			<ovfenvelope:ProductSection> 
+				<ovfenvelope:Info>tomcat</ovfenvelope:Info> 
+				<ovfenvelope:Product>tomcat</ovfenvelope:Product> 
+				<ovfenvelope:Version>7</ovfenvelope:Version> 	
+				<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.instancecomponent">Instance Component Metadata</ovfenvelope:Category>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.0" ovfenvelope:value="apt"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.0.version" ovfenvelope:value="1.4.8"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.0.url" ovfenvelope:value="https://svn.forge.morfeo-project.org/4caast/trunk/WP4/Cookbooks/apt-all/1.4.8/"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.0.recipe.0" ovfenvelope:value="default"/>
+   				<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.1" ovfenvelope:value="chef_handler"/>
+   				<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.1.version" ovfenvelope:value="1.0.5"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.1.url" ovfenvelope:value="https://svn.forge.morfeo-project.org/4caast/trunk/WP4/Cookbooks/chef_handler-all/1.0.5/"/>
+   				<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.1.recipe.0" ovfenvelope:value="default"/>
+   				<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.2" ovfenvelope:value="4CaaSt_REC"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.2.version" ovfenvelope:value="0.0.1"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.2.url" ovfenvelope:value="https://svn.forge.morfeo-project.org/4caast/trunk/WP4/Cookbooks/4CaaSt_REC-all/0.0.1/"/>
+    		    <ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.2.recipe.0" ovfenvelope:value="default"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.3" ovfenvelope:value="rngtools"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.3.version" ovfenvelope:value="0.0.1"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.3.url" ovfenvelope:value="https://svn.forge.morfeo-project.org/4caast/trunk/WP4/Cookbooks/rngtools-all/0.0.1/"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.3.recipe.0" ovfenvelope:value="default"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.type" ovfenvelope:value="REC"/>
+    			<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.rec">REC Attributes</ovfenvelope:Category>
+   				<ovfenvelope:Property ovfenvelope:value="@IP(tomcat,public)" ovfenvelope:key="org.fourcaast.rec.address"/> 
+				<ovfenvelope:Property ovfenvelope:value="@login(tomcat)" ovfenvelope:key="org.fourcaast.rec.username"/> 
+				<ovfenvelope:Property ovfenvelope:value="@password(tomcat)" ovfenvelope:key="org.fourcaast.rec.password"/> 
+    			<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.instancecomponent.attributes">Custom REC Attributes</ovfenvelope:Category>
+			</ovfenvelope:ProductSection>
+
+			
+<rsrvr:GovernanceRuleSection ruleId="1"
+				xmlns:rsrvr="http://schemas.telefonica.com/claudia/ovf"
+				xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData"
+				xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rif="http://www.w3.org/2007/rif#">
+				<Info>A Governance Rule, encoded in RIF</Info>
+
+				<rif:id>
+					<rif:Const type="http://www.w3.org/2007/rif#iri">
+						ScalabilityRule
+					</rif:Const>
+				</rif:id>
+
+				<rif:meta>
+					<rif:Frame>
+						<rif:object>
+							<rif:Const type="http://www.w3.org/2007/rif#iri">
+								ScalabilityRule
+							</rif:Const>
+						</rif:object>
+						<rif:slot>
+							<rif:Const type="http://www.w3.org/2007/rif#iri">
+								http://claudia.telefonica.com#package
+							</rif:Const>
+							<rif:Const type="http://www.w3.org/2007/rif#iri">
+								com.telefonica.claudia
+							</rif:Const>
+						</rif:slot>
+					</rif:Frame>
+				</rif:meta>
+
+				<rif:directive>
+					<rif:Import>
+						<rif:location>example.rdfs</rif:location>
+						<rif:profile>http://www.w3.org/ns/entailment/OWL-Direct
+						</rif:profile>
+					</rif:Import>
+				</rif:directive>
+
+				<rif:directive>
+					<rif:Import>
+						<rif:location>claudiaOWL.rdfs</rif:location>
+						<rif:profile>http://www.w3.org/ns/entailment/OWL-Direct
+						</rif:profile>
+					</rif:Import>
+				</rif:directive>
+
+				<rif:payload>
+					<rif:Group>
+						<rif:behavior>
+							<rif:Priority>50</rif:Priority>
+						</rif:behavior>
+
+						<!--
+
+							First Rule: actions.createReplica(?vee) :- ?vee: VEE[VEEName=>
+							"webserver", currentReplicas=> ?actualCount, maxReplicas=>
+							?maxVEE], MeasuredValue[name=> "requestDelay", value =>
+							?kpiValue], ?actualCount < ?maxVEE, ?kpiValue/(?actualCount+1) >
+							300
+						-->
+						<rif:sentence>
+							<rif:Implies>
+								<rif:id>
+									<rif:Const type="http://www.w3.org/2007/rif#iri">
+										Grow_up
+									</rif:Const>
+								</rif:id>
+								<rif:if>
+									<rif:And>
+										<rif:formula>
+											<rif:Member>
+												<rif:instance>
+													<rif:Var>?vee</rif:Var>
+												</rif:instance>
+												<rif:class>
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#VEE
+										</rif:Const>
+												</rif:class>
+											</rif:Member>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:Frame>
+												<rif:object>
+													<rif:Var>?vee</rif:Var>
+												</rif:object>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#VEEName
+													</rif:Const>
+													<rif:Const type="xsd:string">tomcat</rif:Const>
+												</rif:slot>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#currentReplicas
+													</rif:Const>
+													<rif:Var>?actualCount</rif:Var>
+												</rif:slot>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#maxReplicas
+													</rif:Const>
+													<rif:Var>?maxVEE</rif:Var>
+												</rif:slot>
+											</rif:Frame>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:Frame>
+												<rif:object>
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#MeasuredValue
+													</rif:Const>
+												</rif:object>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#name
+								      				</rif:Const>
+													<rif:Const type="xsd:string">requesDelay</rif:Const>
+												</rif:slot>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#value
+								      				</rif:Const>
+													<rif:Var>?kpiValue</rif:Var>
+												</rif:slot>
+											</rif:Frame>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:External>
+												<rif:content>
+													<rif:Atom>
+														<rif:op>
+															<rif:Const type="rif:iri">
+																http://www.w3.org/2007/rif-builtin-predicate#numeric-less-than
+															</rif:Const>
+														</rif:op>
+														<rif:args ordered="yes">
+															<rif:Var>?actualCount</rif:Var>
+															<rif:Var>?maxVEE</rif:Var>
+														</rif:args>
+													</rif:Atom>
+												</rif:content>
+											</rif:External>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:External>
+												<rif:content>
+													<rif:Atom>
+														<rif:op>
+															<rif:Const type="rif:iri">
+																http://www.w3.org/2007/rif-builtin-predicate#numeric-greater-than
+															</rif:Const>
+														</rif:op>
+														<rif:args ordered="yes">
+
+															<rif:External>
+																<rif:content>
+																	<rif:Expr>
+																		<rif:op>
+																			<rif:Const type="rif:iri">
+																				http://www.w3.org/2007/rif-builtin-predicate#numeric-divide
+																			</rif:Const>
+																		</rif:op>
+																		<rif:args ordered="yes">
+																			<rif:Var>?kpiValue</rif:Var>
+																			<rif:External>
+																				<rif:content>
+																					<rif:Expr>
+																						<rif:op>
+																							<rif:Const type="rif:iri">
+																								http://www.w3.org/2007/rif-builtin-predicate#numeric-add
+																							</rif:Const>
+																						</rif:op>
+																						<rif:args ordered="yes">
+																							<rif:Const type="xsd:integer">1</rif:Const>
+																							<rif:Var>?actualCount</rif:Var>
+																						</rif:args>
+																					</rif:Expr>
+																				</rif:content>
+																			</rif:External>
+																		</rif:args>
+																	</rif:Expr>
+																</rif:content>
+															</rif:External>
+															<rif:Const type="xsd:integer">6.0</rif:Const>
+
+														</rif:args>
+													</rif:Atom>
+												</rif:content>
+											</rif:External>
+										</rif:formula>
+									</rif:And>
+								</rif:if>
+								<rif:then>
+									<rif:Do>
+										<rif:actions ordered="yes">
+											<rif:Execute>
+												<rif:target>
+													<rif:Atom>
+														<rif:op>
+															<rif:Const type="rif:iri">
+																http://claudia.telefonica.com#actions.createReplica
+															</rif:Const>
+														</rif:op>
+														<rif:args ordered="yes">
+															<rif:Var>?vee</rif:Var>
+														</rif:args>
+													</rif:Atom>
+												</rif:target>
+											</rif:Execute>
+										</rif:actions>
+									</rif:Do>
+								</rif:then>
+							</rif:Implies>
+						</rif:sentence>
+
+						<!--
+
+							Second Rule: actions.removeReplica(?vee) :- ?vee: VEE[VEEName=>
+							"Executor", currentReplicas=> ?actualCount, maxReplicas=>
+							?maxVEE], MeasuredValue[name=> "queueLength", value =>
+							?kpiValue], ?actualCount < ?maxVEE, ?kpiValue/(?actualCount+1) <
+							200
+						-->
+						<rif:sentence>
+							<rif:Implies>
+								<rif:id>
+									<rif:Const type="http://www.w3.org/2007/rif#iri">
+										Shrink_down
+						</rif:Const>
+								</rif:id>
+								<rif:if>
+									<rif:And>
+										<rif:formula>
+											<rif:Member>
+												<rif:instance>
+													<rif:Var>?vee</rif:Var>
+												</rif:instance>
+												<rif:class>
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#VEE
+													</rif:Const>
+												</rif:class>
+											</rif:Member>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:Frame>
+												<rif:object>
+													<rif:Var>?vee</rif:Var>
+												</rif:object>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#VEEName
+													</rif:Const>
+													<rif:Const type="xsd:string">tomcat</rif:Const>
+												</rif:slot>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#currentReplicas
+													</rif:Const>
+													<rif:Var>?actualCount</rif:Var>
+												</rif:slot>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#maxReplicas
+													</rif:Const>
+													<rif:Var>?maxVEE</rif:Var>
+												</rif:slot>
+											</rif:Frame>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:Frame>
+												<rif:object>
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#MeasuredValue
+													</rif:Const>
+												</rif:object>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#name
+								      				</rif:Const>
+													<rif:Const type="xsd:string">requesDelay</rif:Const>
+												</rif:slot>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#value
+								      				</rif:Const>
+													<rif:Var>?kpiValue</rif:Var>
+												</rif:slot>
+											</rif:Frame>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:External>
+												<rif:content>
+													<rif:Atom>
+														<rif:op>
+															<rif:Const type="rif:iri">
+																http://www.w3.org/2007/rif-builtin-predicate#numeric-less-than
+															</rif:Const>
+														</rif:op>
+														<rif:args ordered="yes">
+															<rif:Var>?actualCount</rif:Var>
+															<rif:Var>?maxVEE</rif:Var>
+														</rif:args>
+													</rif:Atom>
+												</rif:content>
+											</rif:External>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:External>
+												<rif:content>
+													<rif:Atom>
+														<rif:op>
+															<rif:Const type="rif:iri">
+																http://www.w3.org/2007/rif-builtin-predicate#numeric-less-than
+															</rif:Const>
+														</rif:op>
+														<rif:args ordered="yes">
+
+															<rif:External>
+																<rif:content>
+																	<rif:Expr>
+																		<rif:op>
+																			<rif:Const type="rif:iri">
+																				http://www.w3.org/2007/rif-builtin-predicate#numeric-divide
+																			</rif:Const>
+																		</rif:op>
+																		<rif:args ordered="yes">
+																			<rif:Var>?kpiValue</rif:Var>
+																			<rif:External>
+																				<rif:content>
+																					<rif:Expr>
+																						<rif:op>
+																							<rif:Const type="rif:iri">
+																								http://www.w3.org/2007/rif-builtin-predicate#numeric-add
+																							</rif:Const>
+																						</rif:op>
+																						<rif:args ordered="yes">
+																							<rif:Const type="xsd:integer">1</rif:Const>
+																							<rif:Var>?actualCount</rif:Var>
+																						</rif:args>
+																					</rif:Expr>
+																				</rif:content>
+																			</rif:External>
+																		</rif:args>
+																	</rif:Expr>
+																</rif:content>
+															</rif:External>
+															<rif:Const type="xsd:integer">3.0</rif:Const>
+
+														</rif:args>
+													</rif:Atom>
+												</rif:content>
+											</rif:External>
+										</rif:formula>
+									</rif:And>
+								</rif:if>
+								<rif:then>
+									<rif:Do>
+										<rif:actions ordered="yes">
+											<rif:Execute>
+												<rif:target>
+													<rif:Atom>
+														<rif:op>
+															<rif:Const type="rif:iri">
+																http://claudia.telefonica.com#actions.removeReplica
+															</rif:Const>
+														</rif:op>
+														<rif:args ordered="yes">
+															<rif:Var>?vee</rif:Var>
+														</rif:args>
+													</rif:Atom>
+												</rif:target>
+											</rif:Execute>
+										</rif:actions>
+									</rif:Do>
+								</rif:then>
+							</rif:Implies>
+						</rif:sentence>
+
+					</rif:Group>
+				</rif:payload>
+
+			</rsrvr:GovernanceRuleSection>
+
+			<ovf:VirtualHardwareSection>
+				<Info>Virtual Hardware Requirements: 512Mb, 2 CPU, 1 disk, 1 nic
+				</Info>
+				<ovf:System>
+					<vssd:ElementName>Virtual Hardware Family</vssd:ElementName>
+					<vssd:InstanceID>0</vssd:InstanceID>
+					<vssd:VirtualSystemIdentifier>deploy-tcloud
+					</vssd:VirtualSystemIdentifier>
+					<vssd:VirtualSystemType>vmx-07</vssd:VirtualSystemType>
+				</ovf:System>
+				<Item>
+					<rasd:Description>Number of virtual CPUs</rasd:Description>
+					<rasd:ElementName>1 virtual CPU</rasd:ElementName>
+					<rasd:InstanceID>1</rasd:InstanceID>
+					<rasd:ResourceType>3</rasd:ResourceType>
+					<rasd:VirtualQuantity>1</rasd:VirtualQuantity>
+				</Item>
+				<Item>
+					<rasd:AllocationUnits>MegaBytes</rasd:AllocationUnits>
+					<rasd:Description>Memory Size</rasd:Description>
+					<rasd:ElementName>1024 MB of memory</rasd:ElementName>
+					<rasd:InstanceID>2</rasd:InstanceID>
+					<rasd:ResourceType>4</rasd:ResourceType>
+					<rasd:VirtualQuantity>1024</rasd:VirtualQuantity>
+				</Item>
+				<Item>
+					<rasd:AutomaticAllocation>true</rasd:AutomaticAllocation>
+					<rasd:Connection>public</rasd:Connection>
+					<rasd:ElementName>Ethernet adapter on admin_net network
+					</rasd:ElementName>
+					<rasd:InstanceID>3</rasd:InstanceID>
+					<rasd:ResourceType>10</rasd:ResourceType>
+				</Item>
+				<Item>
+					<rasd:ElementName>Harddisk 1</rasd:ElementName>
+					<rasd:HostResource>ovf://disk/tomcat</rasd:HostResource>
+					<rasd:InstanceID>tomcat</rasd:InstanceID>
+					<rasd:Parent>4</rasd:Parent>
+					<rasd:ResourceType>17</rasd:ResourceType>
+				</Item>
+			</ovf:VirtualHardwareSection>
+</ovf:VirtualSystem>
+
+	<ovf:VirtualSystem ovf:id="haproxy" rsrvr:min="1" rsrvr:max="1"
+			rsrvr:initial="1" rsrvr:balancer="true" rsrvr:lbport="8088">
+
+			<ovf:Info>haproxy</ovf:Info>
+			<ovf:OperatingSystemSection ovf:id="76">
+				<Info>Specifies the operating system installed</Info>
+				<Description>4CaastHaproxyNoSetup</Description>
+			</ovf:OperatingSystemSection>
+			<ovfenvelope:ProductSection> 
+				<ovfenvelope:Info>haproxy</ovfenvelope:Info> 
+				<ovfenvelope:Product>haproxy</ovfenvelope:Product> 
+				<ovfenvelope:Version>1.0</ovfenvelope:Version> 	
+				<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.instancecomponent">Instance Component Metadata</ovfenvelope:Category>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.0" ovfenvelope:value="apt"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.0.version" ovfenvelope:value="1.4.8"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.0.url" ovfenvelope:value="https://svn.forge.morfeo-project.org/4caast/trunk/WP4/Cookbooks/apt-all/1.4.8/"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.0.recipe.0" ovfenvelope:value="default"/>
+   				<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.1" ovfenvelope:value="chef_handler"/>
+   				<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.1.version" ovfenvelope:value="1.0.5"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.1.url" ovfenvelope:value="https://svn.forge.morfeo-project.org/4caast/trunk/WP4/Cookbooks/chef_handler-all/1.0.5/"/>
+   				<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.1.recipe.0" ovfenvelope:value="default"/>
+   				<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.2" ovfenvelope:value="4CaaSt_REC"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.2.version" ovfenvelope:value="0.0.1"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.2.url" ovfenvelope:value="https://svn.forge.morfeo-project.org/4caast/trunk/WP4/Cookbooks/4CaaSt_REC-all/0.0.1/"/>
+    		    <ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.2.recipe.0" ovfenvelope:value="default"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.3" ovfenvelope:value="rngtools"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.3.version" ovfenvelope:value="0.0.1"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.3.url" ovfenvelope:value="https://svn.forge.morfeo-project.org/4caast/trunk/WP4/Cookbooks/rngtools-all/0.0.1/"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.3.recipe.0" ovfenvelope:value="default"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.type" ovfenvelope:value="REC"/>
+    			<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.rec">REC Attributes</ovfenvelope:Category>
+   				<ovfenvelope:Property ovfenvelope:value="@IP(haproxy,public)" ovfenvelope:key="org.fourcaast.rec.address"/> 
+				<ovfenvelope:Property ovfenvelope:value="@login(haproxy)" ovfenvelope:key="org.fourcaast.rec.username"/> 
+				<ovfenvelope:Property ovfenvelope:value="@password(haproxy)" ovfenvelope:key="org.fourcaast.rec.password"/> 
+    			<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.instancecomponent.attributes">Custom REC Attributes</ovfenvelope:Category>
+			</ovfenvelope:ProductSection>
+
+			<ovf:VirtualHardwareSection>
+				<Info>Virtual Hardware Requirements: 512Mb, 2 CPU, 1 disk, 1 nic
+				</Info>
+				<ovf:System>
+					<vssd:ElementName>Virtual Hardware Family</vssd:ElementName>
+					<vssd:InstanceID>0</vssd:InstanceID>
+					<vssd:VirtualSystemIdentifier>deploy-tcloud
+					</vssd:VirtualSystemIdentifier>
+					<vssd:VirtualSystemType>vmx-07</vssd:VirtualSystemType>
+				</ovf:System>
+				<Item>
+					<rasd:Description>Number of virtual CPUs</rasd:Description>
+					<rasd:ElementName>1 virtual CPU</rasd:ElementName>
+					<rasd:InstanceID>1</rasd:InstanceID>
+					<rasd:ResourceType>3</rasd:ResourceType>
+					<rasd:VirtualQuantity>1</rasd:VirtualQuantity>
+				</Item>
+				<Item>
+					<rasd:AllocationUnits>MegaBytes</rasd:AllocationUnits>
+					<rasd:Description>Memory Size</rasd:Description>
+					<rasd:ElementName>512 MB of memory</rasd:ElementName>
+					<rasd:InstanceID>2</rasd:InstanceID>
+					<rasd:ResourceType>4</rasd:ResourceType>
+					<rasd:VirtualQuantity>512</rasd:VirtualQuantity>
+				</Item>
+				<Item>
+					<rasd:AutomaticAllocation>true</rasd:AutomaticAllocation>
+					<rasd:Connection>public</rasd:Connection>
+					<rasd:ElementName>Ethernet adapter on admin_net network
+					</rasd:ElementName>
+					<rasd:InstanceID>3</rasd:InstanceID>
+					<rasd:ResourceType>10</rasd:ResourceType>
+				</Item>
+				<Item>
+					<rasd:ElementName>Harddisk 1</rasd:ElementName>
+					<rasd:HostResource>ovf://disk/haproxy</rasd:HostResource>
+					<rasd:InstanceID>haproxy</rasd:InstanceID>
+					<rasd:Parent>4</rasd:Parent>
+					<rasd:ResourceType>17</rasd:ResourceType>
+				</Item>
+			</ovf:VirtualHardwareSection>
+</ovf:VirtualSystem>
+
+
+	    </ovf:VirtualSystemCollection>
+    </ovf:Envelope>
+    <InstantiationParams>
+    <NetworkConfigSection ovf:required="true">
+	<NetworkConfig name="public"> 
+		<NetworkAssociation href="http://localhost:8182/api/org/es.tid/vdc/test/net/public"/>
+ 	</NetworkConfig>
+
+    </NetworkConfigSection>
+  </InstantiationParams> 
+
+
+</InstantiateOvfParams>

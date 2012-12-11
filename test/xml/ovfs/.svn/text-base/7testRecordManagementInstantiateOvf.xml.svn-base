@@ -1,0 +1,152 @@
+<InstantiateOvfParams name="sapusecase"
+xsi:schemaLocation="http://schemas.tcloud.telefonica.com/tcloud/1 tcloud.xsd"
+xmlns="http://schemas.tcloud.telefonica.com/tcloud/1"
+xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1"
+xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData"
+xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
+xmlns:rsrvr="http://schemas.telefonica.com/claudia/ovf"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ovf:Envelope xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1"
+	xmlns="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ovfenvelope="http://schemas.dmtf.org/ovf/envelope/1"
+	xmlns:rsrvr="http://schemas.telefonica.com/claudia/ovf"
+	xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData"
+	xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rif="http://www.w3.org/2007/rif#"
+	xsi:schemaLocation="http://schemas.telefonica.com/claudia/ovf reservoir.xsd">
+	<ovf:References> 
+		<ovf:File ovf:id="haproxy" ovf:href="4CaastHaproxyNoSetup" rsrvr:digest="8f1643c4fdf83ab3827190ab771f76e1"/> 
+
+		<ovf:File ovf:id="tomcat" ovf:href="TomcatRecordManagementScale" rsrvr:digest="8f1643c4fdf83ab3827190ab771f76e1"/> 
+	</ovf:References>
+	<ovf:DiskSection> 
+		<ovf:Disk ovf:diskId="haproxy" ovf:fileRef="haproxy" ovf:capacity="512" ovf:format="http://www.gnome.org/~markmc/qcow-image-format.html"/>
+		<ovf:Disk ovf:diskId="tomcat" ovf:fileRef="tomcat" ovf:capacity="512" ovf:format="http://www.gnome.org/~markmc/qcow-image-format.html"/>
+	</ovf:DiskSection>
+	
+	
+        <ovf:NetworkSection>
+           <ovf:Info>Network</ovf:Info>
+         			<ovf:Network ovf:name="public" rsrvr:public="true"> 
+				<ovf:Description>Network public</ovf:Description> 
+			</ovf:Network>
+		</ovf:NetworkSection> 
+        <ovf:VirtualSystemCollection ovf:id="sapusecase">
+		  <ovf:Info>VirtualSystemCollection</ovf:Info>	<ovf:VirtualSystem ovf:id="haproxy" rsrvr:min="1" rsrvr:max="1"
+			rsrvr:initial="1" rsrvr:balancer="true" rsrvr:lbport="8088">
+
+			<ovf:Info>haproxy</ovf:Info>
+			<ovf:OperatingSystemSection ovf:id="76">
+				<Info>Specifies the operating system installed</Info>
+				<Description>4CaastHaproxyNoSetup</Description>
+			</ovf:OperatingSystemSection>
+			
+			<ovf:VirtualHardwareSection>
+				<Info>Virtual Hardware Requirements: 512Mb, 2 CPU, 1 disk, 1 nic
+				</Info>
+				<ovf:System>
+					<vssd:ElementName>Virtual Hardware Family</vssd:ElementName>
+					<vssd:InstanceID>0</vssd:InstanceID>
+					<vssd:VirtualSystemIdentifier>deploy-tcloud
+					</vssd:VirtualSystemIdentifier>
+					<vssd:VirtualSystemType>vmx-07</vssd:VirtualSystemType>
+				</ovf:System>
+				<Item>
+					<rasd:Description>Number of virtual CPUs</rasd:Description>
+					<rasd:ElementName>1 virtual CPU</rasd:ElementName>
+					<rasd:InstanceID>1</rasd:InstanceID>
+					<rasd:ResourceType>3</rasd:ResourceType>
+					<rasd:VirtualQuantity>1</rasd:VirtualQuantity>
+				</Item>
+				<Item>
+					<rasd:AllocationUnits>MegaBytes</rasd:AllocationUnits>
+					<rasd:Description>Memory Size</rasd:Description>
+					<rasd:ElementName>512 MB of memory</rasd:ElementName>
+					<rasd:InstanceID>2</rasd:InstanceID>
+					<rasd:ResourceType>4</rasd:ResourceType>
+					<rasd:VirtualQuantity>512</rasd:VirtualQuantity>
+				</Item>
+				<Item>
+					<rasd:AutomaticAllocation>true</rasd:AutomaticAllocation>
+					<rasd:Connection>public</rasd:Connection>
+					<rasd:ElementName>Ethernet adapter on admin_net network
+					</rasd:ElementName>
+					<rasd:InstanceID>3</rasd:InstanceID>
+					<rasd:ResourceType>10</rasd:ResourceType>
+				</Item>
+				<Item>
+					<rasd:ElementName>Harddisk 1</rasd:ElementName>
+					<rasd:HostResource>ovf://disk/haproxy</rasd:HostResource>
+					<rasd:InstanceID>haproxy</rasd:InstanceID>
+					<rasd:Parent>4</rasd:Parent>
+					<rasd:ResourceType>17</rasd:ResourceType>
+				</Item>
+			</ovf:VirtualHardwareSection>
+</ovf:VirtualSystem>
+
+	<ovf:VirtualSystem ovf:id="tomcat" rsrvr:min="1" rsrvr:initial="1" rsrvr:max="5"
+			rsrvr:balanced="haproxy">
+
+			<ovf:Info>tomcat</ovf:Info>
+			<ovf:OperatingSystemSection ovf:id="76">
+				<Info>Specifies the operating system installed</Info>
+				<Description>TomcatRecordManagementScale</Description>
+			</ovf:OperatingSystemSection>
+			
+			
+			<ovf:VirtualHardwareSection>
+				<Info>Virtual Hardware Requirements: 512Mb, 2 CPU, 1 disk, 1 nic
+				</Info>
+				<ovf:System>
+					<vssd:ElementName>Virtual Hardware Family</vssd:ElementName>
+					<vssd:InstanceID>0</vssd:InstanceID>
+					<vssd:VirtualSystemIdentifier>deploy-tcloud
+					</vssd:VirtualSystemIdentifier>
+					<vssd:VirtualSystemType>vmx-07</vssd:VirtualSystemType>
+				</ovf:System>
+				<Item>
+					<rasd:Description>Number of virtual CPUs</rasd:Description>
+					<rasd:ElementName>1 virtual CPU</rasd:ElementName>
+					<rasd:InstanceID>1</rasd:InstanceID>
+					<rasd:ResourceType>3</rasd:ResourceType>
+					<rasd:VirtualQuantity>1</rasd:VirtualQuantity>
+				</Item>
+				<Item>
+					<rasd:AllocationUnits>MegaBytes</rasd:AllocationUnits>
+					<rasd:Description>Memory Size</rasd:Description>
+					<rasd:ElementName>1024 MB of memory</rasd:ElementName>
+					<rasd:InstanceID>2</rasd:InstanceID>
+					<rasd:ResourceType>4</rasd:ResourceType>
+					<rasd:VirtualQuantity>1024</rasd:VirtualQuantity>
+				</Item>
+				<Item>
+					<rasd:AutomaticAllocation>true</rasd:AutomaticAllocation>
+					<rasd:Connection>public</rasd:Connection>
+					<rasd:ElementName>Ethernet adapter on admin_net network
+					</rasd:ElementName>
+					<rasd:InstanceID>3</rasd:InstanceID>
+					<rasd:ResourceType>10</rasd:ResourceType>
+				</Item>
+				<Item>
+					<rasd:ElementName>Harddisk 1</rasd:ElementName>
+					<rasd:HostResource>ovf://disk/tomcat</rasd:HostResource>
+					<rasd:InstanceID>tomcat</rasd:InstanceID>
+					<rasd:Parent>4</rasd:Parent>
+					<rasd:ResourceType>17</rasd:ResourceType>
+				</Item>
+			</ovf:VirtualHardwareSection>
+</ovf:VirtualSystem>
+
+
+	    </ovf:VirtualSystemCollection>
+    </ovf:Envelope>
+    <InstantiationParams>
+    <NetworkConfigSection ovf:required="true">
+	<NetworkConfig name="public"> 
+		<NetworkAssociation href="http://localhost:8182/api/org/es.tid/vdc/test/net/public"/>
+ 	</NetworkConfig>
+
+    </NetworkConfigSection>
+  </InstantiationParams> 
+
+
+</InstantiateOvfParams>
