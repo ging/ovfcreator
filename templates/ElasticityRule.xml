@@ -1,0 +1,391 @@
+<?xml version="1.0" ?>
+
+<rif:Document xmlns:rif="http://www.w3.org/2007/rif#">
+				<Info>A Governance Rule, encoded in RIF</Info>
+
+				<rif:id>
+					<rif:Const type="http://www.w3.org/2007/rif#iri">
+						{name}
+					</rif:Const>
+				</rif:id>
+
+				<rif:meta>
+					<rif:Frame>
+						<rif:object>
+							<rif:Const type="http://www.w3.org/2007/rif#iri">
+								{name}
+							</rif:Const>
+						</rif:object>
+						<rif:slot>
+							<rif:Const type="http://www.w3.org/2007/rif#iri">
+								http://claudia.telefonica.com#package
+							</rif:Const>
+							<rif:Const type="http://www.w3.org/2007/rif#iri">
+								com.telefonica.claudia
+							</rif:Const>
+						</rif:slot>
+					</rif:Frame>
+				</rif:meta>
+
+				<rif:directive>
+					<rif:Import>
+						<rif:location>example.rdfs</rif:location>
+						<rif:profile>http://www.w3.org/ns/entailment/OWL-Direct
+						</rif:profile>
+					</rif:Import>
+				</rif:directive>
+
+				<rif:directive>
+					<rif:Import>
+						<rif:location>claudiaOWL.rdfs</rif:location>
+						<rif:profile>http://www.w3.org/ns/entailment/OWL-Direct
+						</rif:profile>
+					</rif:Import>
+				</rif:directive>
+
+				<rif:payload>
+					<rif:Group>
+						<rif:behavior>
+							<rif:Priority>50</rif:Priority>
+						</rif:behavior>
+
+						<!--
+
+							First Rule: actions.createReplica(?vee) :- ?vee: VEE[VEEName=>
+							"webserver", currentReplicas=> ?actualCount, maxReplicas=>
+							?maxVEE], MeasuredValue[name=> "requestDelay", value =>
+							?kpiValue], ?actualCount < ?maxVEE, ?kpiValue/(?actualCount+1) >
+							300
+						-->
+						<rif:sentence>
+							<rif:Implies>
+								<rif:id>
+									<rif:Const type="http://www.w3.org/2007/rif#iri">
+										Grow_up
+									</rif:Const>
+								</rif:id>
+								<rif:if>
+									<rif:And>
+										<rif:formula>
+											<rif:Member>
+												<rif:instance>
+													<rif:Var>?vee</rif:Var>
+												</rif:instance>
+												<rif:class>
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#VEE
+										</rif:Const>
+												</rif:class>
+											</rif:Member>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:Frame>
+												<rif:object>
+													<rif:Var>?vee</rif:Var>
+												</rif:object>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#VEEName
+													</rif:Const>
+													<rif:Const type="xsd:string">{vm}</rif:Const>
+												</rif:slot>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#currentReplicas
+													</rif:Const>
+													<rif:Var>?actualCount</rif:Var>
+												</rif:slot>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#maxReplicas
+													</rif:Const>
+													<rif:Var>?maxVEE</rif:Var>
+												</rif:slot>
+											</rif:Frame>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:Frame>
+												<rif:object>
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#MeasuredValue
+													</rif:Const>
+												</rif:object>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#name
+								      				</rif:Const>
+													<rif:Const type="xsd:string">{kpi}</rif:Const>
+												</rif:slot>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#value
+								      				</rif:Const>
+													<rif:Var>?kpiValue</rif:Var>
+												</rif:slot>
+											</rif:Frame>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:External>
+												<rif:content>
+													<rif:Atom>
+														<rif:op>
+															<rif:Const type="rif:iri">
+																http://www.w3.org/2007/rif-builtin-predicate#numeric-less-than
+															</rif:Const>
+														</rif:op>
+														<rif:args ordered="yes">
+															<rif:Var>?actualCount</rif:Var>
+															<rif:Var>?maxVEE</rif:Var>
+														</rif:args>
+													</rif:Atom>
+												</rif:content>
+											</rif:External>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:External>
+												<rif:content>
+													<rif:Atom>
+														<rif:op>
+															<rif:Const type="rif:iri">
+																http://www.w3.org/2007/rif-builtin-predicate#numeric-greater-than
+															</rif:Const>
+														</rif:op>
+														<rif:args ordered="yes">
+
+															<rif:External>
+																<rif:content>
+																	<rif:Expr>
+																		<rif:op>
+																			<rif:Const type="rif:iri">
+																				http://www.w3.org/2007/rif-builtin-predicate#numeric-divide
+																			</rif:Const>
+																		</rif:op>
+																		<rif:args ordered="yes">
+																			<rif:Var>?kpiValue</rif:Var>
+																			<rif:External>
+																				<rif:content>
+																					<rif:Expr>
+																						<rif:op>
+																							<rif:Const type="rif:iri">
+																								http://www.w3.org/2007/rif-builtin-predicate#numeric-add
+																							</rif:Const>
+																						</rif:op>
+																						<rif:args ordered="yes">
+																							<rif:Const type="xsd:integer">1</rif:Const>
+																							<rif:Var>?actualCount</rif:Var>
+																						</rif:args>
+																					</rif:Expr>
+																				</rif:content>
+																			</rif:External>
+																		</rif:args>
+																	</rif:Expr>
+																</rif:content>
+															</rif:External>
+															<rif:Const type="xsd:integer">{valueup}</rif:Const>
+
+														</rif:args>
+													</rif:Atom>
+												</rif:content>
+											</rif:External>
+										</rif:formula>
+									</rif:And>
+								</rif:if>
+								<rif:then>
+									<rif:Do>
+										<rif:actions ordered="yes">
+											<rif:Execute>
+												<rif:target>
+													<rif:Atom>
+														<rif:op>
+															<rif:Const type="rif:iri">
+																http://claudia.telefonica.com#actions.createReplica
+															</rif:Const>
+														</rif:op>
+														<rif:args ordered="yes">
+															<rif:Var>?vee</rif:Var>
+														</rif:args>
+													</rif:Atom>
+												</rif:target>
+											</rif:Execute>
+										</rif:actions>
+									</rif:Do>
+								</rif:then>
+							</rif:Implies>
+						</rif:sentence>
+
+						<!--
+
+							Second Rule: actions.removeReplica(?vee) :- ?vee: VEE[VEEName=>
+							"Executor", currentReplicas=> ?actualCount, maxReplicas=>
+							?maxVEE], MeasuredValue[name=> "queueLength", value =>
+							?kpiValue], ?actualCount < ?maxVEE, ?kpiValue/(?actualCount+1) <
+							200
+						-->
+						<rif:sentence>
+							<rif:Implies>
+								<rif:id>
+									<rif:Const type="http://www.w3.org/2007/rif#iri">
+										Shrink_down
+						</rif:Const>
+								</rif:id>
+								<rif:if>
+									<rif:And>
+										<rif:formula>
+											<rif:Member>
+												<rif:instance>
+													<rif:Var>?vee</rif:Var>
+												</rif:instance>
+												<rif:class>
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#VEE
+													</rif:Const>
+												</rif:class>
+											</rif:Member>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:Frame>
+												<rif:object>
+													<rif:Var>?vee</rif:Var>
+												</rif:object>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#VEEName
+													</rif:Const>
+													<rif:Const type="xsd:string">{vm}</rif:Const>
+												</rif:slot>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#currentReplicas
+													</rif:Const>
+													<rif:Var>?actualCount</rif:Var>
+												</rif:slot>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#maxReplicas
+													</rif:Const>
+													<rif:Var>?maxVEE</rif:Var>
+												</rif:slot>
+											</rif:Frame>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:Frame>
+												<rif:object>
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#MeasuredValue
+													</rif:Const>
+												</rif:object>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#name
+								      				</rif:Const>
+													<rif:Const type="xsd:string">{kpi}</rif:Const>
+												</rif:slot>
+												<rif:slot ordered="yes">
+													<rif:Const type="rif:iri">
+														http://claudia.telefonica.com#value
+								      				</rif:Const>
+													<rif:Var>?kpiValue</rif:Var>
+												</rif:slot>
+											</rif:Frame>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:External>
+												<rif:content>
+													<rif:Atom>
+														<rif:op>
+															<rif:Const type="rif:iri">
+																http://www.w3.org/2007/rif-builtin-predicate#numeric-less-than
+															</rif:Const>
+														</rif:op>
+														<rif:args ordered="yes">
+															<rif:Var>?actualCount</rif:Var>
+															<rif:Var>?maxVEE</rif:Var>
+														</rif:args>
+													</rif:Atom>
+												</rif:content>
+											</rif:External>
+										</rif:formula>
+
+										<rif:formula>
+											<rif:External>
+												<rif:content>
+													<rif:Atom>
+														<rif:op>
+															<rif:Const type="rif:iri">
+																http://www.w3.org/2007/rif-builtin-predicate#numeric-less-than
+															</rif:Const>
+														</rif:op>
+														<rif:args ordered="yes">
+
+															<rif:External>
+																<rif:content>
+																	<rif:Expr>
+																		<rif:op>
+																			<rif:Const type="rif:iri">
+																				http://www.w3.org/2007/rif-builtin-predicate#numeric-divide
+																			</rif:Const>
+																		</rif:op>
+																		<rif:args ordered="yes">
+																			<rif:Var>?kpiValue</rif:Var>
+																			<rif:External>
+																				<rif:content>
+																					<rif:Expr>
+																						<rif:op>
+																							<rif:Const type="rif:iri">
+																								http://www.w3.org/2007/rif-builtin-predicate#numeric-add
+																							</rif:Const>
+																						</rif:op>
+																						<rif:args ordered="yes">
+																							<rif:Const type="xsd:integer">1</rif:Const>
+																							<rif:Var>?actualCount</rif:Var>
+																						</rif:args>
+																					</rif:Expr>
+																				</rif:content>
+																			</rif:External>
+																		</rif:args>
+																	</rif:Expr>
+																</rif:content>
+															</rif:External>
+															<rif:Const type="xsd:integer">{valuedown}</rif:Const>
+
+														</rif:args>
+													</rif:Atom>
+												</rif:content>
+											</rif:External>
+										</rif:formula>
+									</rif:And>
+								</rif:if>
+								<rif:then>
+									<rif:Do>
+										<rif:actions ordered="yes">
+											<rif:Execute>
+												<rif:target>
+													<rif:Atom>
+														<rif:op>
+															<rif:Const type="rif:iri">
+																http://claudia.telefonica.com#actions.removeReplica
+															</rif:Const>
+														</rif:op>
+														<rif:args ordered="yes">
+															<rif:Var>?vee</rif:Var>
+														</rif:args>
+													</rif:Atom>
+												</rif:target>
+											</rif:Execute>
+										</rif:actions>
+									</rif:Do>
+								</rif:then>
+							</rif:Implies>
+						</rif:sentence>
+
+					</rif:Group>
+				</rif:payload>
+
+</rif:Document>

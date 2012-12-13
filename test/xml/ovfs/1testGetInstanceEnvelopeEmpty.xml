@@ -32,13 +32,14 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     </ovf:Envelope>
     <InstantiationParams>
     <NetworkConfigSection ovf:required="true">
+	<NetworkConfig name="gestion"> 
+		<NetworkAssociation href="http://localhost:8182/api/org/es.tid/vdc/test/net/gestion"/>
+ 	</NetworkConfig>
+
 	<NetworkConfig name="public"> 
 		<NetworkAssociation href="http://localhost:8182/api/org/es.tid/vdc/test/net/public"/>
  	</NetworkConfig>
 
-	<NetworkConfig name="gestion"> 
-		<NetworkAssociation href="http://localhost:8182/api/org/es.tid/vdc/test/net/gestion"/>
- 	</NetworkConfig>
 
     </NetworkConfigSection>
   </InstantiationParams> 

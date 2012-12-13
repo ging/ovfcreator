@@ -1,234 +1,271 @@
-describe('OVF', function(){
-  describe('Service Application Test', function(){
-    it('get instance evenlope empty', function(){
-      var service = OVF.Service();
-      service.serAppName = "name";
+/*global describe, it, OVF, service, Utils*/
+var expect = chai.expect;
 
-      var result = service.instantiateOVF();
+var compare = function(strg1, strg2) {
+    strg1 = strg1.replace(/\\n/g, '');
+    strg1 = strg1.replace(/\\t/g, '');
+    strg1 = strg1.replace(/\n/g, '');
+    strg1 = strg1.replace(/\t/g, '');
+    strg1 = strg1.replace(/>\s*/g, '>');
+    strg1 = strg1.replace(/(?!=)"\s*/g, '" ');
+    strg1 = strg1.replace(/=\"\s/g, '="');
 
-      Utils.compare(result, "1testGetInstanceEnvelopeEmpty.xml");
-  });
+    strg2 = strg2.replace(/\\n/g, '');
+    strg2 = strg2.replace(/\\t/g, '');
+    strg2 = strg2.replace(/\n/g, '');
+    strg2 = strg2.replace(/\t/g, '');
+    strg2 = strg2.replace(/>\s*/g, '>');
+    strg2 = strg2.replace(/(?!=)"\s*/g, '" ');
+    strg2 = strg2.replace(/=\"\s/g, '="');
 
-    it('get envelope', function(){
-      var service = OVF.Service();
-      service.serAppName = "name";
+    expect(strg1).to.equal(strg2);
+};
 
-      var vm = OVF.VM();
-      vm.name = "test2";
-      vm.virtType = OVF.VirtualizationTechnologyType.XEN;
-      vm.imageName = "imagentest";
-      vm.memory = 512;
-      vm.cpu = 1;
+describe('OVF', function () {
+    "use strict";
+    describe('Service Application Test', function () {
+        var service, result, vm, vm1, vm2, product, network, net1, net2, kpi, rule;
+        it('get instance evenlope empty', function () {
+            service = OVF.Service();
+            service.servAppName = "name";
 
-      service.addVM(vm);
+            result = service.instantiateOVF();
 
-      var result = service.instantiateOVF();
+            var strg1 = result;
+            var strg2 = Utils.getFile("/static/tests/1testGetInstanceEnvelopeEmpty.xml");
+            
+            compare(strg1, strg2);
+            
+        });
 
-      Utils.compare(result, "2testGetEnvelope.xml");
-  });
+        it('get envelope', function () {
+            service = OVF.Service();
+            service.servAppName = "name";
 
-    it('get Intantiate OVF', function(){
-      var service = OVF.Service();
-      service.serAppName = "recordmanagement";
+            vm = OVF.VM();
+            vm.name = "test2";
+            vm.virtType = vm.VirtualizationTechnologyType.XEN;
+            vm.imageName = "imagentest";
+            vm.memory = 512;
+            vm.cpu = 1;
 
-      var vm = OVF.VM();
-      vm.name = "tomcat";
-      vm.imageName = "TomcatRecordManagementScale";
-      vm.memory = 1024;
-      vm.cpu = 1;
+            service.addVM(vm);
 
-      service.addVM(vm);
+            result = service.getEnvelope();
+            var strg1 = result;
+            var strg2 = Utils.getFile("/static/tests/2testGetEnvelope.xml");
 
-      var result = service.instantiateOVF();
+            compare(strg1, strg2);
+        });
 
-      Utils.compare(result, "3testGetInstantiateOvfParams.xml");
-  });
+        it('get Intantiate OVF', function () {
+            service = OVF.Service();
+            service.servAppName = "recordmanagement";
 
-    it('get Envelope 2 VMs', function(){
-      var service = OVF.Service();
-      service.serAppName = "name";
+            vm = OVF.VM();
+            vm.name = "tomcat";
+            vm.imageName = "TomcatRecordManagementScale";
+            vm.memory = 1024;
+            vm.cpu = 1;
 
-      var vm = OVF.VM();
-      vm.name = "test2";
-      vm.virtType = OVF.VirtualizationTechnologyType.XEN;
-      vm.imageName = "imagentest";
-      vm.memory = 512;
-      vm.cpu = 1;
+            service.addVM(vm);
 
-      var vm2 = OVF.VM();
-      vm2.name = "test3";
-      vm2.virtType = OVF.VirtualizationTechnologyType.XEN;
-      vm2.imageName = "imagentest3";
-      vm2.memory = 512;
-      vm2.cpu = 1;
+            result = service.instantiateOVF();
 
-      service.addVM(vm);
-      service.addVM(vm2);
+            var strg1 = result;
+            var strg2 = Utils.getFile("/static/tests/3testGetInstantiateOvfParams.xml");
 
-      var result = service.instantiateOVF();
+            compare(strg1, strg2);
+        });
 
-      Utils.compare(result, "4testGetEnvelope2VMs.xml");
-  });
+        it('get Envelope 2 VMs', function () {
+            service = OVF.Service();
+            service.servAppName = "name";
 
-    it('get Envelope Balancer', function(){
-      var service = OVF.Service();
-      service.serAppName = "balancer";
+            vm = OVF.VM();
+            vm.name = "test2";
+            vm.virtType = OVF.VirtualizationTechnologyType.XEN;
+            vm.imageName = "imagentest";
+            vm.memory = 512;
+            vm.cpu = 1;
 
-      var vm = OVF.VM();
-      vm.name = "balance";
-      vm.imageName = "haproxy";
-      vm.memory = 512;
-      vm.cpu = 1;
-      vm.balancer = true;
+            vm2 = OVF.VM();
+            vm2.name = "test3";
+            vm2.virtType = OVF.VirtualizationTechnologyType.XEN;
+            vm2.imageName = "imagentest3";
+            vm2.memory = 512;
+            vm2.cpu = 1;
 
-      service.addVM(vm);
+            service.addVM(vm);
+            service.addVM(vm2);
 
-      var result = service.instantiateOVF();
+            result = service.instantiateOVF();
+            var strg1 = result;
+            var strg2 = Utils.getFile("/static/tests/4testGetEnvelope2VMs.xml");
 
-      Utils.compare(result, "5testGetEnvelopeBalancer.xml");
-  });
+            compare(strg1, strg2);
+        });
 
-    it('Get Envelope 2 VMs With Products', function(){
-      var service = OVF.Service();
-      service.serAppName = "name";
+        it('get Envelope Balancer', function () {
+            service = OVF.Service();
+            service.servAppName = "balancer";
 
-      var vm = OVF.VM();
-      vm.name = "test2";
-      vm.virtType = OVF.VirtualizationTechnologyType.XEN;
-      vm.imageName = "imagentest";
-      vm.memory = 512;
-      vm.cpu = 1;
-      vm.balancer = true;
+            vm = OVF.VM();
+            vm.name = "balance";
+            vm.imageName = "haproxy";
+            vm.memory = 512;
+            vm.cpu = 1;
+            vm.balancer = true;
 
-      var product = OVF.Product({name: "tomcat"});
-      product.version = "1.0";
-      product.recipe = "recipe 2.0";
+            service.addVM(vm);
 
-      vm.addProduct(product);
-      service.addVM(vm);
+            result = service.instantiateOVF();
 
-      var result = service.instantiateOVF();
+            Utils.compare(result, "5testGetEnvelopeBalancer.xml");
+        });
 
-      Utils.compare(result, "6testGetEnvelope2VMsWithProducts.xml");
-  });
+        it('Get Envelope 2 VMs With Products', function () {
+            service = OVF.Service();
+            service.servAppName = "name";
 
-    it('Record Management Instantiate Ovf', function(){
-      var service = OVF.Service();
-      service.serAppName = "sapusecase";
+            vm = OVF.VM();
+            vm.name = "test2";
+            vm.virtType = OVF.VirtualizationTechnologyType.XEN;
+            vm.imageName = "imagentest";
+            vm.memory = 512;
+            vm.cpu = 1;
+            vm.balancer = true;
 
-      var network = OVF.Network({name: "public"});
-      network.publicNet = true;
-      service.addNetwork(network);
+            product = OVF.Product({name: "tomcat"});
+            product.version = "1.0";
+            product.recipe = "recipe 2.0";
 
-      var vmTomcat = OVF.VM();
-      vmTomcat.name = "tomcat";
-      vmTomcat.imageName = "TomcatRecordManagementScale";
-      vmTomcat.memory = 1024;
-      vmTomcat.cpu = 1;
-      vmTomcat.balancedBy = "haproxy";
-      vmTomcat.addNetwork(network);
+            vm.addProduct(product);
+            service.addVM(vm);
 
-      var vmBalancer = OVF.VM();
-      vmBalancer.name = "haproxy";
-      vmBalancer.imageName = "4CaastHaproxyNoSetup";
-      vmBalancer.balancer = true;
-      vmBalancer.memory = 512;
-      vmBalancer.cpu = 1;
-      vmBalancer.addNetwork(network);
+            result = service.instantiateOVF();
 
-      service.addVM(vmBalancer);
-      service.addVM(vmTomcat);
+            Utils.compare(result, "6testGetEnvelope2VMsWithProducts.xml");
+        });
 
-      var result = service.instantiateOVF();
+        it('Record Management Instantiate Ovf', function () {
+            service = OVF.Service();
+            service.servAppName = "sapusecase";
 
-      Utils.compare(result, "7testRecordManagementInstantiateOvf.xml");
-  });
+            network = OVF.Network({name: "public"});
+            network.publicNet = true;
+            service.addNetwork(network);
 
-    it('Record Management Instantiate Ovf With Scalability', function(){
-      var service = OVF.Service();
-      service.serAppName = "sapusecase28";
+            vm1 = OVF.VM();
+            vm1.name = "tomcat";
+            vm1.imageName = "TomcatRecordManagementScale";
+            vm1.memory = 1024;
+            vm1.cpu = 1;
+            vm1.balancedBy = "haproxy";
+            vm1.addNetwork(network);
 
-      var kpi = OVF.ServiceKPI({name: "requestDelay"});
-      kpi.KPIVmname("tomcat");
-      service.registerServiceKPI(kpi);
+            vm2 = OVF.VM();
+            vm2.name = "haproxy";
+            vm2.imageName = "4CaastHaproxyNoSetup";
+            vm2.balancer = true;
+            vm2.memory = 512;
+            vm2.cpu = 1;
+            vm2.addNetwork(network);
 
-      var rule = OVF.GovernanceRule({name: 1});
-      rule.setKpi("requesDelay", 6, 3);
-      rule.vmForRule("tomcat");
+            service.addVM(vm2);
+            service.addVM(vm1);
 
-      var network = OVF.Network({name: "public"});
-      network.publicNet = true;
-      service.addNetwork(network);
+            result = service.instantiateOVF();
 
-      var vmTomcat = OVF.VM();
-      vmTomcat.name = "tomcat";
-      vmTomcat.imageName = "TomcatRecordManagementScale";
-      vmTomcat.memory = 1024;
-      vmTomcat.cpu = 1;
-      vmTomcat.balancedBy = "haproxy";
-      vmTomcat.addNetwork(network);
-      vmTomcat.recProduct = true;
-      vmTomcat.recVersion = "7";
-      vmTomcat.registerVMRule(rule);
+            Utils.compare(result, "7testRecordManagementInstantiateOvf.xml");
+        });
 
-      var vmBalancer = OVF.VM();
-      vmBalancer.name = "haproxy";
-      vmBalancer.imageName = "4CaastHaproxyNoSetup";
-      vmBalancer.balancer = true;
-      vmBalancer.memory = 512;
-      vmBalancer.cpu = 1;
-      vmBalancer.addNetwork(network);
-      vmBalancer.recProduct = true;
+        it('Record Management Instantiate Ovf With Scalability', function () {
+            service = OVF.Service();
+            service.servAppName = "sapusecase28";
 
-      service.addVM(vmBalancer);
-      service.addVM(vmTomcat);
+            kpi = OVF.ServiceKPI({name: "requestDelay"});
+            kpi.KPIVmname = "tomcat";
+            service.registerServiceKPI(kpi);
 
-      var result = service.instantiateOVF();
+            rule = OVF.GovernanceRule();
+            rule.number = 1;
+            rule.setKpi("requestDelay", 6, 3);
+            rule.vmForRule = "tomcat";
 
-      Utils.compare(result, "9testRecordManagementInstantiateOvfWithScalability.xml");
-  });
+            network = OVF.Network();
+            network.name = "public";
+            network.publicNet = true;
+            service.addNetwork(network);
 
-it('Instantiate OVF Params VM', function(){
-      var vmTomcat = OVF.VM();
-      vmTomcat.name = "tomcat";
-      vmTomcat.imageName = "TomcatRecordManagementScale";
-      vmTomcat.memory = 1024;
-      vmTomcat.cpu = 1;
-      
-      var result = vmTomcat.instantiateOVF();
+            vm1 = OVF.VM();
+            vm1.name = "tomcat";
+            vm1.imageName = "TomcatRecordManagementScale";
+            vm1.memory = 1024;
+            vm1.cpu = 1;
+            vm1.balancedBy = "haproxy";
+            vm1.addNetwork(network);
+            vm1.recProduct = true;
+            vm1.recVersion = "7";
+            vm1.registerVMRule(rule);
 
-      Utils.compare(result, "10testInstantiateOVFParamsVM.xml");
-  });
+            vm2 = OVF.VM();
+            vm2.name = "haproxy";
+            vm2.imageName = "4CaastHaproxyNoSetup";
+            vm2.balancer = true;
+            vm2.memory = 512;
+            vm2.cpu = 1;
+            vm2.addNetwork(network);
+            vm2.recProduct = true;
 
-it('Instantiate OVF Params Service Fiware', function(){
-      var service = OVF.Service();
-      service.serAppName = "fiwaretest";
-      service.organization = "demo";
-      service.vdcName = "occivdc";
+            service.addVM(vm2);
+            service.addVM(vm1);
 
-      var net1 = OVF.Network({name: "servicio"});
-      var net2 = OVF.Network({name: "gestion"});
+            result = service.instantiateOVF();
 
-      service.addNetwork(net1);
-      service.addNetwork(net2);
+            Utils.compare(result, "9testRecordManagementInstantiateOvfWithScalability.xml");
+        });
 
-      var result = service.instantiateOVF();
+        it('Instantiate OVF Params VM', function () {
+            vm1 = OVF.VM();
+            vm1.name = "tomcat";
+            vm1.imageName = "TomcatRecordManagementScale";
+            vm1.memory = 1024;
+            vm1.cpu = 1;
 
-      Utils.compare(result, "11testInstantiateOVFParamsServiceFiware.xml");
-  });
+            result = vm1.instantiateOVF();
 
-it('Instantiate OVF Params VM Fiware', function(){
-      var vmTomcat = OVF.VM();
-      vmTomcat.name = "tomcat";
-      vmTomcat.imageName = "file:///cirros-0.3.0-x86_64-uec";
-      vmTomcat.memory = 1024;
-      vmTomcat.cpu = 1;
-      
-      var result = vmTomcat.instantiateOVF();
+            Utils.compare(result, "10testInstantiateOVFParamsVM.xml");
+        });
 
-      Utils.compare(result, "12testInstantiateOVFParamsVMFiware.xml");
-  });
+        it('Instantiate OVF Params Service Fiware', function () {
+            service = OVF.Service();
+            service.servAppName = "fiwaretest";
+            service.organization = "demo";
+            service.vdcName = "occivdc";
 
+            net1 = OVF.Network({name: "servicio"});
+            net2 = OVF.Network({name: "gestion"});
 
-});
+            service.addNetwork(net1);
+            service.addNetwork(net2);
+
+            result = service.instantiateOVF();
+
+            Utils.compare(result, "11testInstantiateOVFParamsServiceFiware.xml");
+        });
+
+        it('Instantiate OVF Params VM Fiware', function () {
+            vm1 = OVF.VM();
+            vm1.name = "tomcat";
+            vm1.imageName = "file:///cirros-0.3.0-x86_64-uec";
+            vm1.memory = 1024;
+            vm1.cpu = 1;
+
+            result = vm1.instantiateOVF();
+
+            Utils.compare(result, "12testInstantiateOVFParamsVMFiware.xml");
+        });
+
+    });
 });

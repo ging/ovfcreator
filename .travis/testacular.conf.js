@@ -13,7 +13,15 @@ basePath = '.';
 files = [
   MOCHA,
   MOCHA_ADAPTER,
+  '../test/chai.js',
+  '../lib/jquery-1.8.3.min.js',
+  '../lib/underscore-min.js',
+  '../lib/jsonml-xml.js',
+  '../src/Utils.js',
+  '../src/OVF.Configuration.js',
   '../src/OVF.js',
+  '../src/OVF.Network.js',
+  '../src/OVF.VM.js',
   '../src/OVF.Service.js',
   '../test/test.js'
 ];
@@ -69,6 +77,11 @@ singleRun = true;
 // report which specs are slower than 500ms
 // CLI --report-slower-than 500
 reportSlowerThan = 500;
+
+proxies = {
+  '/static/templates/': 'http://localhost:1337/templates/',
+  '/static/tests/': 'http://localhost:1337/test/xml/ovfs/'
+};
 
 // compile coffee scripts
 preprocessors = {

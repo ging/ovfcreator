@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ovf:Envelope xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1"
+	xmlns="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ovfenvelope="http://schemas.dmtf.org/ovf/envelope/1"
+	xmlns:rsrvr="http://schemas.telefonica.com/claudia/ovf"
+	xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData"
+	xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rif="http://www.w3.org/2007/rif#"
+	xsi:schemaLocation="http://schemas.telefonica.com/claudia/ovf reservoir.xsd">
+	<% 
+    if (vms.length > 0) {
+    %>
+    <ovf:References>
+        <%
+        for (var index in vms) {
+            if (vms.hasOwnProperty(index)) {
+                var vee = vms[index];
+                %>
+        <ovf:File ovf:id="<%=vee.name%>" ovf:href="<%=vee.imageName%>" rsrvr:digest="8f1643c4fdf83ab3827190ab771f76e1"/>
+        <%
+            }
+        }
+        %>
+    </ovf:References>
+        <%
+        }
+        if (vms.length > 0) {
+        %>
+    <ovf:DiskSection>
+        <%
+        for (var index in vms) {
+            if (vms.hasOwnProperty(index)) {
+                var vee = vms[index];
+                %>
+        <ovf:Disk ovf:diskId="<%=vee.name%>" ovf:fileRef="<%=vee.name%>" ovf:capacity="512" ovf:format="http://www.gnome.org/~markmc/qcow-image-format.html"/>
+        <%
+            }
+        }
+        %>
+    </ovf:DiskSection>
+        <%
+        }
+        %>
+	<ovf:NetworkSection>
+        <ovf:Info>Network</ovf:Info>
+        <%
+           for (var index in networks) {
+            if (networks.hasOwnProperty(index)) {
+                var network = networks[index];
+                %>
+            <ovf:Network ovf:name="<%= network.name %>" rsrvr:public="<%= network.publicNet %>">
+                <ovf:Description>Network <%= network.name %></ovf:Description>
+            </ovf:Network>
+            <%
+            }
+        }%>     
+	</ovf:NetworkSection> 
+	<ovf:VirtualSystemCollection ovf:id="<%=servAppName%>">
+		<ovf:Info>VirtualSystemCollection</ovf:Info>
+   	    <%
+        for (var index in vms) {
+            if (vms.hasOwnProperty(index)) {
+                var vee = vms[index];
+            %>
+            <%=vee.getVMEnvelope()%>
+            <%
+            }
+        }%>
+	</ovf:VirtualSystemCollection>
+</ovf:Envelope>

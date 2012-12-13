@@ -1,0 +1,13 @@
+<ovfenvelope:ProductSection xmlns:ovfenvelope="http://schemas.dmtf.org/ovf/envelope/1"
+ovfenvelope:class="4caast.vm.recordsapplication">
+				<ovfenvelope:Info>{product}</ovfenvelope:Info>
+				<ovfenvelope:Product>{product}</ovfenvelope:Product>
+				<ovfenvelope:Version>{version}</ovfenvelope:Version>
+				<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.instancecomponent">Instance Component Metadata</ovfenvelope:Category>
+				<ovfenvelope:Property ovfenvelope:value="{product}" ovfenvelope:key="org.fourcaast.instancecomponent.id"/>
+				<ovfenvelope:Property ovfenvelope:value="{type}" ovfenvelope:key="org.fourcaast.instancecomponent.type"/>
+				{recipe}
+{cookbook}
+				<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.instancecomponent.attributes">Product Specific Attributes</ovfenvelope:Category>
+				{attributes}
+</ovfenvelope:ProductSection>

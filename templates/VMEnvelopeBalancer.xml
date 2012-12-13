@@ -1,0 +1,51 @@
+<ovf:VirtualSystem ovf:id="{vmname}" rsrvr:min="1" rsrvr:max="1"
+			rsrvr:initial="1" rsrvr:balancer="true" rsrvr:lbport="8088">
+
+			<ovf:Info>{vmname}</ovf:Info>
+			<ovf:OperatingSystemSection ovf:id="76">
+				<Info>Specifies the operating system installed</Info>
+				<Description>{imagename}</Description>
+			</ovf:OperatingSystemSection>
+			{productrec}{products}{applications}
+			<ovf:VirtualHardwareSection>
+				<Info>Virtual Hardware Requirements: 512Mb, 2 CPU, 1 disk, 1 nic
+				</Info>
+				<ovf:System>
+					<vssd:ElementName>Virtual Hardware Family</vssd:ElementName>
+					<vssd:InstanceID>0</vssd:InstanceID>
+					<vssd:VirtualSystemIdentifier>deploy-tcloud
+					</vssd:VirtualSystemIdentifier>
+					<vssd:VirtualSystemType>vmx-07</vssd:VirtualSystemType>
+				</ovf:System>
+				<Item>
+					<rasd:Description>Number of virtual CPUs</rasd:Description>
+					<rasd:ElementName>{cpu} virtual CPU</rasd:ElementName>
+					<rasd:InstanceID>1</rasd:InstanceID>
+					<rasd:ResourceType>3</rasd:ResourceType>
+					<rasd:VirtualQuantity>{cpu}</rasd:VirtualQuantity>
+				</Item>
+				<Item>
+					<rasd:AllocationUnits>MegaBytes</rasd:AllocationUnits>
+					<rasd:Description>Memory Size</rasd:Description>
+					<rasd:ElementName>{ram} MB of memory</rasd:ElementName>
+					<rasd:InstanceID>2</rasd:InstanceID>
+					<rasd:ResourceType>4</rasd:ResourceType>
+					<rasd:VirtualQuantity>{ram}</rasd:VirtualQuantity>
+				</Item>
+				<Item>
+					<rasd:AutomaticAllocation>true</rasd:AutomaticAllocation>
+					<rasd:Connection>{network}</rasd:Connection>
+					<rasd:ElementName>Ethernet adapter on admin_net network
+					</rasd:ElementName>
+					<rasd:InstanceID>3</rasd:InstanceID>
+					<rasd:ResourceType>10</rasd:ResourceType>
+				</Item>
+				<Item>
+					<rasd:ElementName>Harddisk 1</rasd:ElementName>
+					<rasd:HostResource>ovf://disk/{vmname}</rasd:HostResource>
+					<rasd:InstanceID>{vmname}</rasd:InstanceID>
+					<rasd:Parent>4</rasd:Parent>
+					<rasd:ResourceType>17</rasd:ResourceType>
+				</Item>
+			</ovf:VirtualHardwareSection>
+</ovf:VirtualSystem>

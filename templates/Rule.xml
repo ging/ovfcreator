@@ -1,0 +1,238 @@
+<?xml version="1.0" ?>
+
+<Document
+	xmlns="http://www.w3.org/2007/rif#">
+	
+	<id>
+		<Const type="http://www.w3.org/2007/rif#iri">
+			RuleExample
+		</Const>
+	</id>
+	
+	<meta>
+		<Frame>
+			<object>
+				<Const type="http://www.w3.org/2007/rif#iri">
+					Deployment rules
+				</Const>
+			</object>
+			<slot>
+				<Const type="http://www.w3.org/2007/rif#iri">
+					http://claudia.telefonica.com#package
+				</Const>
+				<Const type="http://www.w3.org/2007/rif#iri">
+					com.telefonica.claudia
+				</Const>
+			</slot>
+		</Frame>
+	</meta>
+
+	<directive>
+		<Import>
+			<location>claudiaOntology.owl</location>
+			<profile>http://www.w3.org/ns/entailment/OWL-Direct</profile>
+		</Import>
+	</directive>
+	
+	<payload>
+		<Group>
+			<behavior>
+				<Priority>50</Priority>
+			</behavior>
+
+			<!--
+				First rule: 
+				
+					DeployReplica(?vm, ?virt, ?dc), 
+					?vm(deployed-> true) :-
+						?vm:VEEReplica(deployed-> false, parentVEE-> ?vmt),
+						?dc:CloudProvider(imageFormat-> ?virt, providerAvailable -> false),
+						~NotSuitable(?dc, ?vm),
+						?vmt:VEE(virtType -> ?virt)
+					
+			-->		
+			<sentence>
+				<Group>
+					<behavior>
+						<Priority>10</Priority>
+					</behavior>
+					<sentence>
+						<Implies>
+							<id>
+								<Const type="http://www.w3.org/2007/rif#iri">
+									Deployment_rule
+								</Const>
+							</id>
+							
+							<if>
+								<And>
+									<formula>
+										<Member>
+											<instance>
+												<Var>?vm</Var>
+											</instance>
+											<class>
+												<Const type="rif:iri">
+													http://tid.telefonica.com#VEEReplica
+												</Const>
+											</class>
+										</Member>
+									</formula>
+									
+									<formula>
+										<Frame>
+											<object>
+												<Var>?vm</Var>
+											</object>
+											<slot ordered="yes">
+												<Const type="rif:iri">
+													http://tid.telefonica.com#deployed
+										      	</Const>
+												<Const type="xsd:boolean">false</Const>
+											</slot>
+											<slot ordered="yes">
+												<Const type="rif:iri">
+													http://tid.telefonica.com#parentVEE
+										      	</Const>
+												<Var>?vmt</Var>
+											</slot>
+										</Frame>
+									</formula>
+									
+									<formula>
+										<Member>
+											<instance>
+												<Var>?dc</Var>
+											</instance>
+											<class>
+												<Const type="rif:iri">
+													http://tid.telefonica.com#CloudProvider
+												</Const>
+											</class>
+										</Member>
+									</formula>
+									
+									<formula>
+										<Frame>
+											<object>
+												<Var>?dc</Var>
+											</object>
+											<slot ordered="yes">
+												<Const type="rif:iri">
+													http://tid.telefonica.com#imageFormat
+										      	</Const>
+												<Var>?virt</Var>
+											</slot>
+											<slot ordered="yes">
+												<Const type="rif:iri">
+													http://tid.telefonica.com#providerAvailable
+										      	</Const>
+												<Const type="xsd:boolean">true</Const>
+											</slot>
+										</Frame>
+									</formula>
+									
+									<formula>
+										<INeg>
+											<formula>
+												<Frame>
+													<object>
+														<Const type="rif:iri">
+															http://example.com#NotSuitable
+														</Const>
+													</object>
+													<slot ordered="yes">
+														<Const type="rif:iri">
+															http://example.com#dcCandidate
+														</Const>
+														<Var>?dc</Var>
+													</slot>
+													<slot ordered="yes">
+														<Const type="rif:iri">
+															http://example.com#vmToDeploy
+														</Const>
+														<Var>?vm</Var>
+													</slot>
+												</Frame>
+											</formula>
+										</INeg>
+									</formula>
+											
+									<formula>
+										<Member>
+											<instance>
+												<Var>?vmt</Var>
+											</instance>
+											<class>
+												<Const type="rif:iri">
+													http://tid.telefonica.com#VEE
+												</Const>
+											</class>
+										</Member>
+									</formula>
+									
+									<formula>
+										<Frame>
+											<object>
+												<Var>?vmt</Var>
+											</object>
+											<slot ordered="yes">
+												<Const type="rif:iri">
+													http://tid.telefonica.com#virtType
+										      	</Const>
+												<Var>?virt</Var>
+											</slot>
+										</Frame>
+									</formula>
+									
+								</And>
+							</if>
+							
+							<then>
+								<Do>
+									<actions ordered="yes">
+										<Execute>
+											<target>
+												<Atom>
+													<op>
+														<Const type="rif:iri">
+															http://claudia.telefonica.com#actions.deployReplica
+										      			</Const>
+													</op>
+													<args ordered="yes">
+														<Var>?vm</Var>
+														<Var>?virt</Var>
+														<Var>?dc</Var>
+													</args>
+												</Atom>
+											</target>
+										</Execute>
+										
+										<Modify>
+											<target>
+												<Frame>
+													<object>
+														<Var>?vm</Var>
+													</object>
+													<slot ordered="yes">
+														<Const type="rif:iri">
+															http://claudia.telefonica.com#deployed
+												      	</Const>
+														<Const type="xsd:boolean">true</Const>
+													</slot>
+												</Frame>
+											</target>
+										</Modify>
+										
+									</actions>	
+								</Do>					
+							</then>
+						</Implies>					
+					</sentence>
+				</Group>
+
+			</sentence>
+		</Group>
+	</payload>
+</Document>
+

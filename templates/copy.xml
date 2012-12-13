@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InstantiateOvfParams xmlns="http://schemas.tcloud.telefonica.com/tcloud/1" xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1" 
+xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:schemaLocation="http://schemas.tcloud.telefonica.com/tcloud/1 ../../../tags/core/v0.11/tcloud.xsd" 
+ name="{servicename}">
+<Description>Envelop </Description>
+<ovf:Envelope xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1"
+	xmlns="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ovfenvelope="http://schemas.dmtf.org/ovf/envelope/1"
+	xmlns:rsrvr="http://schemas.telefonica.com/claudia/ovf"
+	xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData"
+	xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rif="http://www.w3.org/2007/rif#"
+	xsi:schemaLocation="http://schemas.telefonica.com/claudia/ovf reservoir.xsd">
+
+      
+	<ovf:References>
+    <File ovf:id="{vmname}" ovf:href="{imagename}" rsrvr:digest="8f1643c4fdf83ab3827190ab771f76e1"/>
+			 
+	</ovf:References>
+	<ovf:DiskSection>
+		<Info>
+			Disk Section
+          </Info>
+		<Disk ovf:diskId="{vmname}" ovf:fileRef="{vmname}" ovf:capacity="512" ovf:format="http://www.gnome.org/~markmc/qcow-image-format.html"/>
+	
+	</ovf:DiskSection>
+	<NetworkSection>
+		<Info>
+			
+		</Info>
+		<Network ovf:name="{network}" rsrvr:public="true">
+			<Description>
+				Network 
+        </Description>
+		</Network>
+	</NetworkSection>
+	
+	<VirtualSystemCollection ovf:id="{servicename}">
+		<Info>VirtualSystemCollection</Info>
+
+		<VirtualSystem ovf:id="{vmname}" rsrvr:min="1" rsrvr:max="1"
+			rsrvr:initial="1">
+			<Info>{vmname}</Info>
+			<OperatingSystemSection ovf:id="76">
+				<Info>Specifies the operating system installed</Info>
+				<Description>{imagename}</Description>
+			</OperatingSystemSection>
+			<ovfenvelope:ProductSection> 
+				<ovfenvelope:Info>{vmname}</ovfenvelope:Info> 
+				<ovfenvelope:Product>{vmname}</ovfenvelope:Product> 
+				<ovfenvelope:Version>1.0</ovfenvelope:Version> 
+				<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.instancecomponent">Instance Component Metadata</ovfenvelope:Category> 
+				<ovfenvelope:Property ovfenvelope:value="apt" ovfenvelope:key="org.fourcaast.instancecomponent.recipe"/> 
+				<ovfenvelope:Property ovfenvelope:value="chef_handler" ovfenvelope:key="org.fourcaast.instancecomponent.recipe"/> 
+				<ovfenvelope:Property ovfenvelope:value="4CaaSt_REC" ovfenvelope:key="org.fourcaast.instancecomponent.recipe"/> 
+				<ovfenvelope:Property ovfenvelope:value="rngtools" ovfenvelope:key="org.fourcaast.instancecomponent.recipe"/> 
+				<ovfenvelope:Property ovfenvelope:value="REC" ovfenvelope:key="org.fourcaast.instancecomponent.type"/> 
+				<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.rec">REC Attributes</ovfenvelope:Category> 
+				<ovfenvelope:Property ovfenvelope:value="@IP({vmname},{network})" ovfenvelope:key="org.fourcaast.rec.address"/> 
+				<ovfenvelope:Property ovfenvelope:value="@login({vmname})" ovfenvelope:key="org.fourcaast.rec.username"/> 
+				<ovfenvelope:Property ovfenvelope:value="@password({vmname})" ovfenvelope:key="org.fourcaast.rec.password"/> 
+				<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.instancecomponent.attributes">Custom REC Attributes</ovfenvelope:Category>
+			</ovfenvelope:ProductSection>
+			<ovf:VirtualHardwareSection>
+				<Info>Virtual Hardware Requirements: 512Mb, 2 CPU, 1 disk, 1 nic
+				</Info>
+				<ovf:System>
+					<vssd:ElementName>Virtual Hardware Family</vssd:ElementName>
+					<vssd:InstanceID>0</vssd:InstanceID>
+					<vssd:VirtualSystemIdentifier>deploy-tcloud
+					</vssd:VirtualSystemIdentifier>
+					<vssd:VirtualSystemType>vmx-07</vssd:VirtualSystemType>
+				</ovf:System>
+				<Item>
+					<rasd:Description>Number of virtual CPUs</rasd:Description>
+					<rasd:ElementName>{cpu} virtual CPU</rasd:ElementName>
+					<rasd:InstanceID>1</rasd:InstanceID>
+					<rasd:ResourceType>3</rasd:ResourceType>
+					<rasd:VirtualQuantity>{cpu}</rasd:VirtualQuantity>
+				</Item>
+				<Item>
+					<rasd:AllocationUnits>MegaBytes</rasd:AllocationUnits>
+					<rasd:Description>Memory Size</rasd:Description>
+					<rasd:ElementName>{ram} MB of memory</rasd:ElementName>
+					<rasd:InstanceID>2</rasd:InstanceID>
+					<rasd:ResourceType>4</rasd:ResourceType>
+					<rasd:VirtualQuantity>{ram}</rasd:VirtualQuantity>
+				</Item>
+				<Item>
+					<rasd:AutomaticAllocation>true</rasd:AutomaticAllocation>
+					<rasd:Connection>{network}</rasd:Connection>
+					<rasd:ElementName>Ethernet adapter on admin_net network
+					</rasd:ElementName>
+					<rasd:InstanceID>3</rasd:InstanceID>
+					<rasd:ResourceType>10</rasd:ResourceType>
+				</Item>
+				<Item>
+					<rasd:ElementName>Harddisk 1</rasd:ElementName>
+					<rasd:HostResource>ovf://disk/{vmname}</rasd:HostResource>
+					<rasd:InstanceID>{vmname}</rasd:InstanceID>
+					<rasd:Parent>4</rasd:Parent>
+					<rasd:ResourceType>17</rasd:ResourceType>
+				</Item>
+			</ovf:VirtualHardwareSection>
+		</VirtualSystem>
+
+
+
+	</VirtualSystemCollection>
+</ovf:Envelope>
+</InstantiateOvfParams>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ovf:Envelope xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1"
+	xmlns="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ovfenvelope="http://schemas.dmtf.org/ovf/envelope/1"
+	xmlns:rsrvr="http://schemas.telefonica.com/claudia/ovf"
+	xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData"
+	xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rif="http://www.w3.org/2007/rif#"
+	xsi:schemaLocation="http://schemas.telefonica.com/claudia/ovf reservoir.xsd">
+
+      	
+    <ovf:NetworkSection>
+            <ovf:Info>"Empty Network"</ovf:Info>
+            <ovf:Network ovf:name="public" rsrvr:public="true">
+                            <ovf:Description>Network to provide administrative access</ovf:Description>
+            </ovf:Network>
+            </ovf:NetworkSection>
+            <ovf:VirtualSystemCollection/>
+</ovf:Envelope>
+
+
+	

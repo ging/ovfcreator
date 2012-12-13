@@ -1,0 +1,28 @@
+<ovfenvelope:ProductSection> 
+				<ovfenvelope:Info>{vmname}</ovfenvelope:Info> 
+				<ovfenvelope:Product>{vmname}</ovfenvelope:Product> 
+				<ovfenvelope:Version>{version}</ovfenvelope:Version> 	
+				<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.instancecomponent">Instance Component Metadata</ovfenvelope:Category>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.0" ovfenvelope:value="apt"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.0.version" ovfenvelope:value="1.4.8"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.0.url" ovfenvelope:value="https://svn.forge.morfeo-project.org/4caast/trunk/WP4/Cookbooks/apt-all/1.4.8/"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.0.recipe.0" ovfenvelope:value="default"/>
+   				<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.1" ovfenvelope:value="chef_handler"/>
+   				<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.1.version" ovfenvelope:value="1.0.5"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.1.url" ovfenvelope:value="https://svn.forge.morfeo-project.org/4caast/trunk/WP4/Cookbooks/chef_handler-all/1.0.5/"/>
+   				<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.1.recipe.0" ovfenvelope:value="default"/>
+   				<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.2" ovfenvelope:value="4CaaSt_REC"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.2.version" ovfenvelope:value="0.0.1"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.2.url" ovfenvelope:value="https://svn.forge.morfeo-project.org/4caast/trunk/WP4/Cookbooks/4CaaSt_REC-all/0.0.1/"/>
+    		    <ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.2.recipe.0" ovfenvelope:value="default"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.3" ovfenvelope:value="rngtools"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.3.version" ovfenvelope:value="0.0.1"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.3.url" ovfenvelope:value="https://svn.forge.morfeo-project.org/4caast/trunk/WP4/Cookbooks/rngtools-all/0.0.1/"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.cookbook.3.recipe.0" ovfenvelope:value="default"/>
+    			<ovfenvelope:Property ovfenvelope:key="org.fourcaast.instancecomponent.type" ovfenvelope:value="REC"/>
+    			<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.rec">REC Attributes</ovfenvelope:Category>
+   				<ovfenvelope:Property ovfenvelope:value="@IP({vmname},{network})" ovfenvelope:key="org.fourcaast.rec.address"/> 
+				<ovfenvelope:Property ovfenvelope:value="@login({vmname})" ovfenvelope:key="org.fourcaast.rec.username"/> 
+				<ovfenvelope:Property ovfenvelope:value="@password({vmname})" ovfenvelope:key="org.fourcaast.rec.password"/> 
+    			<ovfenvelope:Category ovfenvelope:msgid="org.fourcaast.instancecomponent.attributes">Custom REC Attributes</ovfenvelope:Category>
+			</ovfenvelope:ProductSection>

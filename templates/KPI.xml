@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<ns2:Measure
+	xmlns:ns2="http://schemas.tcloud.telefonica.com/tcloud-mon/1" 
+	xmlns:ns1="http://schemas.tcloud.telefonica.com/tcloud/1" 
+	ns1:href="http://10.95.191.16:8080/rest-api/api/org/${0}/vdc/${1}/vapp/${2}/${3}/monitor/${4}">
+	<ns2:MeasureDescriptor href="http://10.95.191.16:8080/rest-api/api/org/${0}/vdc/${1}/vapp/${2}/${3}" name="${4}" type="byte * 2^30"/>
+	<ns2:Sample timestamp="2011-04-07T09:40:47Z">${5}</ns2:Sample>
+</ns2:Measure>
