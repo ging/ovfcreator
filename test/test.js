@@ -106,7 +106,29 @@ describe('OVF', function () {
             compare(strg1, strg2);
         });
 
-        it('get Envelope Balancer', function () {
+        it('get VDC from JSON', function () {
+            var vdc = OVF.VDC({description: 'A description...', 
+                name: 'occivdc',
+                id: 3,
+                disk_units: 'byte * 2 * ^ 30',
+                disk_limit: '50000.0', 
+                cpu_units: '# CPUs', 
+                cpu_limit: '10000.0',
+                memory_limit: 'byte * 2 ^ 30',
+                memory_units: '10000.0'});
+            vdc.addVirtualNetwork('public_protected', 1, 'service', 'Godzillas ADSL', 'routed', 'Mb', 6, 2);
+            vdc.addVirtualNetwork('private_protected', 2, 'management', 'Godzillas Intranet', 'isolated', 'Gb', 1, 254);
+            //alert(vdc.toXML());
+        });
+
+        it('get VDC from XML', function () {
+            var vdc = OVF.VDC({});
+            vdc.fromXML('<?xml version="1.0" encoding="UTF-8"?><VDC name="occivdc" Id="3"><Description>A description...</Description><Topology><Zone type="public-protected"><VirtualNetwork id="1" name="service"><Description>Godzillas ADSL</Description><Mode>routed</Mode><Bandwidth units="Mb">6</Bandwidth><Size>2</Size></VirtualNetwork></Zone><Zone type="private-protected"><VirtualNetwork id="2" name="management"><Description>Godzillas Intranet</Description><Mode>isolated</Mode><Bandwidth units="Gb">1</Bandwidth><Size>254</Size></VirtualNetwork></Zone></Topology><StorageCapacity><Disk><Units>byte * 2 * ^ 30</Units><Limit>50000.0</Limit></Disk></StorageCapacity><ComputeCapacity><Cpu><Units># CPUs</Units><Limit>10000.0</Limit></Cpu><Memory><Units>byte * 2 ^ 30</Units><Limit>10000.0</Limit></Memory></ComputeCapacity></VDC>');
+            alert(vdc);
+            alert(vdc.toXML());
+        });
+
+        /*it('get Envelope Balancer', function () {
             service = OVF.Service();
             service.servAppName = "balancer";
 
@@ -266,6 +288,6 @@ describe('OVF', function () {
 
             Utils.compare(result, "12testInstantiateOVFParamsVMFiware.xml");
         });
-
+        */
     });
 });
